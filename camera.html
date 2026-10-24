@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Camera Sample</title>
+
+<style>
+body {
+    font-family: sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+video {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>カメラテスト</h2>
+
+<video id="video" autoplay playsinline></video>
+
+<br>
+
+<button id="startBtn">カメラ起動</button>
+
+<script>
+const video = document.getElementById("video");
+const button = document.getElementById("startBtn");
+
+button.addEventListener("click", async () => {
+    try {
+
+        const stream =
+            await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "environment"
+                },
+                audio: false
+            });
+
+        video.srcObject = stream;
+
+    } catch (err) {
+        alert("カメラを利用できません: " + err.message);
+    }
+});
+</script>
+
+</body>
+</html>
